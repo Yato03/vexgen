@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
 import PropTypes from 'prop-types'
-import { Eye, ArrowBigDownDash } from 'lucide-react'
+import { Eye, ArrowBigDownDash, ArrowBigUpDash } from 'lucide-react'
 import { useTheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -194,6 +194,22 @@ const VEXsPage = () => {
       })
   }
 
+  const ingest_vex = (vex_id) => {
+    fetch('http://localhost:8000/vex/ingest/' + vex_id, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(async response => {
+        const data = await response.json()
+        console.log(data)
+      })
+      .catch(error => {
+        console.error('Error al ingestar el VEX:', error)
+      })
+  }
+
   const show_vex = (vex_id) => {
     navigate('/vex/' + vex_id)
   }
@@ -260,6 +276,7 @@ const VEXsPage = () => {
               <TableCell align="center">SBOM Path</TableCell>
               <TableCell align="center">Show VEX</TableCell>
               <TableCell align="center">Download VEX</TableCell>
+              <TableCell align="center">Ingest VEX in GUAC</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -276,6 +293,7 @@ const VEXsPage = () => {
                 <TableCell align="center">{vex.sbom_path}</TableCell>
                 <TableCell align="center"><Button size="small" variant="contained" style={{backgroundColor: "#d97706"}} onClick={() => show_vex(vex._id)}><Eye /></Button></TableCell>
                 <TableCell align="center"><Button size="small" variant="contained" style={{backgroundColor: "#d97706"}} onClick={() => download_vex(vex._id)}><ArrowBigDownDash /></Button></TableCell>
+                <TableCell align="center"><Button size="small" variant="contained" style={{backgroundColor: "#d97706"}} onClick={() => ingest_vex(vex._id)}><ArrowBigUpDash /></Button></TableCell>
               </TableRow>
             ))}
             {emptyRows > 0 && (

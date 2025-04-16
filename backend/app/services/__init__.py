@@ -33,6 +33,7 @@ from .vex_service import (
     create_vex,
     read_vex_by_id,
     read_vex_moment_by_owner_name_sbom_path,
+    ingest_vex,
 )
 
 __all__ = [
@@ -60,4 +61,5 @@ __all__ = [
     "create_vex",
     "read_vex_by_id",
     "read_vex_moment_by_owner_name_sbom_path",
+    "ingest_vex",
 ]

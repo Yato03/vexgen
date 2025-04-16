@@ -23,7 +23,8 @@ class Settings(BaseSettings):
     JWT_SECRET_KEY: str = ""
     GITHUB_GRAPHQL_API_KEY: str = ""
     NVD_API_KEY: str = ""
-
+    GUAC_IMAGE: str = ""
+    GUAC_API_PORT: str = ""
     class Config:
         env_file = ".env"
 

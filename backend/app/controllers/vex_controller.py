@@ -22,6 +22,7 @@ from app.services import (
     read_exploits_by_cve_id,
     read_user_vexs,
     read_vex_by_id,
+    ingest_vex,
     read_vex_moment_by_owner_name_sbom_path,
     update_user_vexs,
 )
@@ -54,6 +55,14 @@ async def download_vex(vex_id: str) -> FileResponse:
         myzip.writestr("vex.json", dumps(vex["vex"], indent=2))
         myzip.writestr("extended_vex.json", dumps(vex["extended_vex"], indent=2))
     return FileResponse(path="vex.zip", filename="vex.zip", headers={'Access-Control-Expose-Headers': 'Content-Disposition'}, status_code=status.HTTP_200_OK)
+
+@router.get("/vex/ingest/{vex_id}")
+async def ingest_vex_to_guac(vex_id: str) -> JSONResponse:
+    parsed_vex = await ingest_vex(vex_id)
+    return JSONResponse(
+        status_code=status.HTTP_200_OK,
+        content=json_encoder(parsed_vex),
+    )
 
 
 @router.post("/vex/generate")
