@@ -76,20 +76,30 @@ Sidebar.propTypes = {
   children: PropTypes.array
 }
 
-export function SidebarItem({ icon, text, active, alert, route }) {
+export function SidebarItem({ icon, text, active, alert, route, outside = false}) {
   const { expanded } = useContext(SidebarContext)
   return (
     <li
       className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${active ? 'bg-gradient-to-tr from-amber-200 to-amber-100 text-amber-800' : 'hover:bg-amber-50 text-gray-600'}`}
     >
-      {
+      { outside ? (
+        <a
+          className='relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group'
+          href={route}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          {icon}
+          <span className={`overflow-hidden transition-all ${expanded ? 'w-36 ml-3' : 'w-0'}`}>{text}</span>
+        </a>
+      ) : (
         <Link
           className='relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group'
           to={route}
         >
           {icon}
           <span className={`overflow-hidden transition-all ${expanded ? 'w-36 ml-3' : 'w-0'}`}>{text}</span>
-        </Link>
+        </Link>)
       }
       {alert && <div className={`absolute right-2 w-2 h-2 rounded bg-amber-400 ${expanded ? '' : 'top-2'}`}></div>}
       {!expanded && (
@@ -108,5 +118,6 @@ SidebarItem.propTypes = {
   text: PropTypes.string,
   active: PropTypes.bool,
   alert: PropTypes.bool,
-  route: PropTypes.string
+  route: PropTypes.string,
+  outside: PropTypes.bool
 }

@@ -47,3 +47,5 @@ Enter [here](http://0.0.0.0:8000/docs)
 1. It is recommended to use a GUI such as [MongoDB Compass](https://www.mongodb.com/en/products/compass) to see what information is being indexed in vulnerability database
    
 2. You can see the created graph built for [PyPY](http://0.0.0.0:7474/browser/), [NPM](http://localhost:7473/browser/), [Maven](http://localhost:7472/browser/), [Cargo](http://localhost:7471/browser/) and [NuGet](http://localhost:7470/browser/) clicking in this names. Using the Neo4J browser interfaces.
+
+3. You can visit eGuac at [http://localhost:8080](http://0.0.0.0:8080)

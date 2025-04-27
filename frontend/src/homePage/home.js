@@ -12,23 +12,32 @@ const HomePage = (props) => {
   }
 
   return (
-    <div className='flex flex-col h-screen justify-center items-center m-auto space-y-6 w-8/12'>
-      <p className='text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl'>Welcome to VEXGen!</p>
-      <p className='text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400 text-center'>
+    <div className="flex flex-col min-h-screen justify-center items-center m-auto space-y-6 w-11/12 max-w-4xl p-4 overflow-auto">
+      <p className="text-3xl md:text-4xl font-extrabold leading-none tracking-tight text-gray-900 text-center">
+        Welcome to VEXGen + eGuac!
+      </p>
+      <p className="text-base md:text-lg text-gray-500 text-center dark:text-gray-400">
         VEXGen is a simple generating tool of VEX files and assisting information supporting the creation of VEX files.
       </p>
-      <div className='embed-responsive aspect-video'>
+      <p className="text-base md:text-lg text-gray-500 text-center dark:text-gray-400">
+        Now, with eGuac integration, you can easily ingest your VEX files into the eGuac system and make queries in the GraphQL interface.
+      </p>      
+      {is_logged ? null : (
+        <Button variant="contained" style={{ backgroundColor: "#d97706" }} onClick={on_button_click}>
+          Log In
+        </Button>
+      )}
+      <div className="embed-responsive aspect-video">
         <iframe
-          title='demo-video'
-          className='embed-responsive-item rounded-lg'
+          title="demo-video"
+          className="embed-responsive-item rounded-lg"
           width='853'
-          height='480'
-          src='https://www.youtube.com/embed/KPqZaauM2k0'
-          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+          height='480'          
+          src="https://www.youtube.com/embed/KPqZaauM2k0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />
       </div>
-      {is_logged ? null : <Button variant="contained" style={{backgroundColor: "#d97706"}} onClick={on_button_click}>Log In</Button>}
     </div>
   )
 }

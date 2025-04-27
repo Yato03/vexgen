@@ -274,11 +274,6 @@ const VEXsPage = () => {
       <label className={`text-red-600 ${name_error !== '' ? '' : 'hidden'}`}>{name_error}</label>
       <label className={`text-red-600 ${sbom_path_error !== '' ? '' : 'hidden'}`}>{sbom_path_error}</label>
       <Button variant="contained" style={{backgroundColor: "#d97706"}} onClick={on_button_generate_vex}>Generate VEX</Button>
-      <a 
-            href="http://localhost:8080"
-            className='flex items-center justify-center text-gray-500 border-2 rounded-lg p-2 hover:bg-gray-100'
-            target="_blank" rel="noreferrer"
-          >Visit GUAC GraphQL Playground</a>
       <label className={`text-green-300 bg-lime-100 pr-1 pl-1 rounded`}>{message}</label>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -289,7 +284,7 @@ const VEXsPage = () => {
               <TableCell align="center">SBOM Path</TableCell>
               <TableCell align="center">Show VEX</TableCell>
               <TableCell align="center">Download VEX</TableCell>
-              <TableCell align="center">Ingest VEX in GUAC</TableCell>
+              <TableCell align="center">Ingest VEX in eGuac</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

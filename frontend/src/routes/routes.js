@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { RouterProvider, createBrowserRouter, Outlet } from 'react-router-dom'
-import { Home, Boxes, CircleHelp } from 'lucide-react'
+import { Home, Boxes, CircleHelp, ExternalLink } from 'lucide-react'
 import { HomePage } from '../homePage/home'
 import { HelpPage } from '../helpPage/help'
 import { LoginPage } from '../auth/login'
@@ -38,7 +38,12 @@ function Routes() {
     <>
       <Sidebar is_logged={is_logged}>
         <SidebarItem icon={<Home size={20} />} text='Home' route='/' />
-        {is_logged ? <SidebarItem icon={<Boxes size={20} />} text='VEX Generation' route='/vex' /> : null}
+        {is_logged ? (
+          <>
+          <SidebarItem icon={<Boxes size={20} />} text='VEX Generation' route='/vex' />
+          <SidebarItem icon={<ExternalLink size={20} />} text='Go to eGuac' route='http://localhost:8080' outside={true} />
+          </>
+          ) : null}
         <SidebarItem icon={<CircleHelp size={20} />} text='Help' route='/help' />
       </Sidebar>
       <Outlet />
