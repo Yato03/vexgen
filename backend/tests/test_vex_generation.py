@@ -35,11 +35,8 @@ async def test_user(async_client):
 
 @pytest.mark.asyncio
 async def test_generate_vex(async_client, test_user):
-    # Esperar la creación del usuario
     user_id = test_user
-    print(user_id)
     
-    # Datos de prueba usando un repositorio real
     test_data = {
         "owner": "depexorg",
         "name": "vex_generation",
@@ -48,30 +45,23 @@ async def test_generate_vex(async_client, test_user):
         "user_id": user_id
     }
     
-    # Convertir a GenerateVEXRequest
     request = GenerateVEXRequest(**test_data)
     
-    # Hacer la petición POST
     response = await async_client.post("/vex/generate", json=request.model_dump())
     
-    # Verificar que la respuesta es exitosa
     assert response.status_code == 200
     
-    # Verificar que la respuesta es un archivo ZIP
     assert response.headers["content-type"] == "application/zip"
     
-    # Guardar el ZIP temporalmente para verificar su contenido
     zip_path = "test_vex.zip"
     with open(zip_path, "wb") as f:
         f.write(response.content)
     
-    # Verificar que el ZIP contiene los archivos esperados
     with zipfile.ZipFile(zip_path, "r") as zip_file:
         files = zip_file.namelist()
         assert "vex.json" in files
         assert "extended_vex.json" in files
     
-    # Limpiar el archivo temporal
     os.remove(zip_path)
 
 @pytest_asyncio.fixture(scope="session")
@@ -92,13 +82,10 @@ async def vex_data(test_user):
 
 @pytest.mark.asyncio
 async def test_vex_ingestion(async_client, get_vex_by_user):
-    # Simular la creación de un VEX con un ID
     vex_id = get_vex_by_user[0]["_id"]
     
-    # Ejecutar la ingestión
     result = await async_client.get(f"/vex/ingest/{vex_id}")
     result_json = result.json()
     
-    # Verificar que el resultado tiene la estructura esperada
     assert isinstance(result_json, dict)
     assert "@context" in result_json

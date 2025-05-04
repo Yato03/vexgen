@@ -3,7 +3,7 @@ import pytest
 
 @pytest.fixture(scope="session")
 def event_loop():
-    """Crear un event loop de sesión para permitir scope=session en fixtures async."""
+    """Create a session-scoped event loop to allow scope=session in async fixtures."""
     loop = asyncio.new_event_loop()
     yield loop
     loop.close()
