@@ -34,7 +34,7 @@ https://github.com/user-attachments/assets/5750712e-8429-410b-b697-ce8414fe5063
 - How to get a NVD [API key](https://nvd.nist.gov/developers/request-an-api-key)
 
 ### Step 2
-Run command 'docker compose up --build' and seed the database with vulnerability info
+Run command `docker compose up --build` and seed the database with vulnerability info
 
 #### Seeders
 
@@ -48,4 +48,8 @@ Enter [here](http://0.0.0.0:8000/docs)
    
 2. You can see the created graph built for [PyPY](http://0.0.0.0:7474/browser/), [NPM](http://localhost:7473/browser/), [Maven](http://localhost:7472/browser/), [Cargo](http://localhost:7471/browser/) and [NuGet](http://localhost:7470/browser/) clicking in this names. Using the Neo4J browser interfaces.
 
-3. You can visit eGuac at [http://localhost:8080](http://0.0.0.0:8080)
+3. You can visit eGuac at [http://localhost:8080](http://localhost:8080)
+
+## Tests
+
+To run tests use the command `docker exec -it vexgen_backend pytest` once you have the containers running.
