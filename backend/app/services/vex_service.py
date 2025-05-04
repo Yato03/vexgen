@@ -25,8 +25,6 @@ async def ingest_vex(vex_id: str) -> dict[str, Any]:
     vexs_collection = get_collection("vexs")
     vex = await vexs_collection.find_one({"_id": ObjectId(vex_id)})
     extended_vex = vex["extended_vex"]
-    with open("extended_vex_pre.json", "w") as f:
-        f.write(dumps(extended_vex, indent=2))
     parsed_vex = parse_vex(extended_vex)
     save_vex(parsed_vex)
     call_guac()
@@ -37,11 +35,6 @@ def save_vex(parsed_vex):
         f.write(dumps(parsed_vex, indent=2))
 
 def call_guac():
-    # Show extended_vex.json
-    """
-    with open("extended_vex.json", "r") as f:
-        print(f.read())
-    """
     subprocess.run(["./guacone", "collect", "files", "./extended_vex.json", "--gql-addr", "http://guac-graphql:8080/query"])
 
 def parse_vex(vex_json):
