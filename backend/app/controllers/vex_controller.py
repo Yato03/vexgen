@@ -5,6 +5,9 @@ from os import system
 from os.path import exists, isdir
 from typing import Any
 from zipfile import ZipFile
+import os
+import subprocess
+import shutil
 
 from fastapi import APIRouter, Body, status
 from fastapi.responses import FileResponse, JSONResponse
@@ -84,6 +87,29 @@ async def generate_vex(
         < last_commit_date.replace(tzinfo=UTC)
     ):
         carpeta_descarga = await download_repository(GenerateVEXRequest.owner, GenerateVEXRequest.name)
+        
+        # Ingerir sbom en eGuac
+        sbom_path = ""
+        for branch in ("main", "master"):
+            potential_path = os.path.join(carpeta_descarga, branch, GenerateVEXRequest.sbom_path.lstrip('/'))
+            if os.path.exists(potential_path):
+                sbom_path = potential_path
+                break
+                
+        if not sbom_path:
+            return JSONResponse(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                content=json_encoder({"message": "No se encontró el archivo SBOM en las ramas main o master"}),
+            )
+            
+        try:
+            temp_sbom = "temp_sbom.json"
+            shutil.copy2(sbom_path, temp_sbom)
+            subprocess.run(["./guacone", "collect", "files", temp_sbom, "--gql-addr", "http://guac-graphql:8080/query"])
+            os.remove(temp_sbom)
+        except Exception as e:
+            print(f"Advertencia: No se pudo ingerir el SBOM en Guac: {str(e)}")
+        
         result = await init_generate_vex(carpeta_descarga, GenerateVEXRequest.owner, GenerateVEXRequest.sbom_path, GenerateVEXRequest.statements_group)
         if isinstance(result, JSONResponse):
             system("rm -rf " + carpeta_descarga)
