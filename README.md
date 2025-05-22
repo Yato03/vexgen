@@ -1,4 +1,7 @@
-# VexGen Project
+# VexGen+eGuac Project
+
+This is a project which brings together and adapts VexGen and eGuac to simplify and facilitate the creation and analysis of eVEX format.  It allows you to take your GitHub project to a vulnerability analysis in a matter of clicks.
+
 
 <!-- <p>
   <a href="https://github.com/GermanMT/depex/releases" target="_blank">
@@ -17,6 +20,7 @@
     <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7692304.svg" alt="DOI">
   </a>
 </p> -->
+
 
 ## Video tutorial
 
